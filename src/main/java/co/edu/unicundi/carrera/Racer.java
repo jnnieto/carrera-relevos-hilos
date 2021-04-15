@@ -9,7 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Clase Hija de Figura que calcula área y perímetro del círculo
+ * Clase Racer que maneja tanto las posiciones como el identificador de cada
+ * competidor, además controla y asigna las posiciones aleatoriamente 
  *
  * @author Tatiana Ramos Villanueva
  * @author Nicolás Nieto Cárdenas
@@ -27,19 +28,36 @@ public class Racer {
     }
 
     public void moveRacer() {
+        
         try {
-            int radomNumber;
+            
+            int randomNumber;
             while (position < 20) {
 
-                radomNumber = generateRandomNumber(1, 3);
-                position += radomNumber;
+                randomNumber = generateRandomNumber(1, 3);
+                position += randomNumber;
 
-                if (racerNumber.equals("1-R") || racerNumber.equals("2-R") || racerNumber.equals("3-R")) {
-                    System.out.println("Equipo rojo --> Corredor " + racerNumber + " esta en la posición " + position);
-                } else if (racerNumber.equals("1-Y") || racerNumber.equals("2-Y") || racerNumber.equals("3-Y")) {
-                    System.out.println("Equipo amarillo --> Corredor " + racerNumber + " esta en la posición " + position);
-                } else if (racerNumber.equals("1-B") || racerNumber.equals("2-B") || racerNumber.equals("3-B")) {
-                    System.out.println("Equipo azul --> Corredor " + racerNumber + " esta en la posición " + position);
+                switch (racerNumber) {
+                    case "1-R":
+                    case "2-R":
+                    case "3-R":
+                        System.out.println("Equipo rojo --> Corredor " + racerNumber + " esta en la posición " + position);
+                        break;
+                        
+                    case "1-Y":
+                    case "2-Y":
+                    case "3-Y":
+                        System.out.println("Equipo amarillo --> Corredor " + racerNumber + " esta en la posición " + position);
+                        break;
+                        
+                    case "1-B":
+                    case "2-B":
+                    case "3-B":
+                        System.out.println("Equipo azul --> Corredor " + racerNumber + " esta en la posición " + position);
+                        break;
+                        
+                    default:
+                        break;
                 }
                 Thread.sleep(1000);
                 System.out.println("\n");

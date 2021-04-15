@@ -9,31 +9,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase Teams que contiene los hilos que representan a cada competidor en 
+ * la carrera de relevos
  *
- * @author nicon
+ * @author Tatiana Ramos Villanueva
+ * @author Nicolás Nieto Cárdenas
+ * @version 1.1.0
+ * @since 1.0.0
  */
 public class Teams extends Thread {
     
     Racer racer;
-    Object testigo;
+    Object witness;
 
-    public Teams(Racer racer, Object testigo) {
+    public Teams(Racer racer, Object witness) {
         this.racer = racer;
-        this.testigo = testigo;
+        this.witness = witness;
     }
 
     @Override
     public void run() {
-        synchronized(testigo) {
+        synchronized(witness) {
             try {
-                testigo.wait();
+                witness.wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Teams.class.getName()).log(Level.SEVERE, null, ex);
             }
             racer.moveRacer();
-            testigo.notify();
+            witness.notify();
         }
     }
-    
     
 }

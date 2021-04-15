@@ -5,8 +5,6 @@
  */
 package co.edu.unicundi.carrera;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,9 +18,9 @@ import java.util.logging.Logger;
  */
 public class Main {
 
-    Object testigoRojo = new Object();
-    Object testigoAzul = new Object();
-    Object testigoAmarillo = new Object();
+    Object witnessRed = new Object();
+    Object witnessBlue = new Object();
+    Object witnessYellow = new Object();
 
     Racer racer1;
     Thread threadRacer1;
@@ -48,25 +46,36 @@ public class Main {
     public Main() {
 
         racer1 = new Racer("1-R");
-        threadRacer1 = new Teams(racer1, testigoRojo);
+        threadRacer1 = new Teams(racer1, witnessRed);
         racer2 = new Racer("2-R");
-        threadRacer2 = new Teams(racer2, testigoRojo);
+        threadRacer2 = new Teams(racer2, witnessRed);
         racer3 = new Racer("3-R");
-        threadRacer3 = new Teams(racer3, testigoRojo);
+        threadRacer3 = new Teams(racer3, witnessRed);
 
         racer4 = new Racer("1-B");
-        threadRacer4 = new Teams(racer4, testigoAzul);
+        threadRacer4 = new Teams(racer4, witnessBlue);
         racer5 = new Racer("2-B");
-        threadRacer5 = new Teams(racer5, testigoAzul);
+        threadRacer5 = new Teams(racer5, witnessBlue);
         racer6 = new Racer("3-B");
-        threadRacer6 = new Teams(racer6, testigoAzul);
+        threadRacer6 = new Teams(racer6, witnessBlue);
 
         racer7 = new Racer("1-Y");
-        threadRacer7 = new Teams(racer7, testigoAmarillo);
+        threadRacer7 = new Teams(racer7, witnessYellow);
         racer8 = new Racer("2-Y");
-        threadRacer8 = new Teams(racer8, testigoAmarillo);
+        threadRacer8 = new Teams(racer8, witnessYellow);
         racer9 = new Racer("3-Y");
-        threadRacer9 = new Teams(racer9, testigoAmarillo);
+        threadRacer9 = new Teams(racer9, witnessYellow);
+
+        initThreads();
+        
+        finishRelayRace();
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+    }
+
+    public void initThreads() {
 
         threadRacer1.start();
         threadRacer2.start();
@@ -84,69 +93,56 @@ public class Main {
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        synchronized (testigoRojo) {
-            testigoRojo.notify();
+        synchronized (witnessRed) {
+            witnessRed.notify();
         }
 
-        synchronized (testigoAmarillo) {
-            testigoAmarillo.notify();
+        synchronized (witnessBlue) {
+            witnessBlue.notify();
         }
 
-        synchronized (testigoAzul) {
-            testigoAzul.notify();
+        synchronized (witnessYellow) {
+            witnessYellow.notify();
         }
+    }
+
+    public void interruptThreads() {
+        threadRacer1.interrupt();
+        threadRacer2.interrupt();
+        threadRacer3.interrupt();
+        threadRacer4.interrupt();
+        threadRacer5.interrupt();
+        threadRacer6.interrupt();
+        threadRacer7.interrupt();
+        threadRacer8.interrupt();
+        threadRacer9.interrupt();
+    }
+    
+    public void finishRelayRace() {
 
         while (threadRacer1.isAlive() || threadRacer2.isAlive() || threadRacer3.isAlive()
                 || threadRacer4.isAlive() || threadRacer5.isAlive() || threadRacer6.isAlive()
                 || threadRacer7.isAlive() || threadRacer8.isAlive() || threadRacer9.isAlive()) {
 
             if (racer3.getPosition() >= 20) {
-                threadRacer1.interrupt();
-                threadRacer2.interrupt();
-                threadRacer3.interrupt();
-                threadRacer4.interrupt();
-                threadRacer5.interrupt();
-                threadRacer6.interrupt();
-                threadRacer7.interrupt();
-                threadRacer8.interrupt();
-                threadRacer9.interrupt();
 
+                interruptThreads();
                 System.out.println("EL EQUIPO GANADOR ES EL EQUIPO ROJO");
                 break;
 
             } else if (racer6.getPosition() >= 20) {
-                threadRacer1.interrupt();
-                threadRacer2.interrupt();
-                threadRacer3.interrupt();
-                threadRacer4.interrupt();
-                threadRacer5.interrupt();
-                threadRacer6.interrupt();
-                threadRacer7.interrupt();
-                threadRacer8.interrupt();
-                threadRacer9.interrupt();
 
+                interruptThreads();
                 System.out.println("EL EQUIPO GANADOR ES EL EQUIPO AZUL");
                 break;
 
             } else if (racer9.getPosition() >= 20) {
-                threadRacer1.interrupt();
-                threadRacer2.interrupt();
-                threadRacer3.interrupt();
-                threadRacer4.interrupt();
-                threadRacer5.interrupt();
-                threadRacer6.interrupt();
-                threadRacer7.interrupt();
-                threadRacer8.interrupt();
-                threadRacer9.interrupt();
 
+                interruptThreads();
                 System.out.println("EL EQUIPO GANADOR ES EL EQUIPO AMARILLO");
                 break;
             }
         }
     }
-
-    public static void main(String[] args) {
-        new Main();
-    }
-
+ 
 }
