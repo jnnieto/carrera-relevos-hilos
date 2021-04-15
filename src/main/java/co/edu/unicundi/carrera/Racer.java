@@ -18,33 +18,35 @@ import java.util.logging.Logger;
  */
 public class Racer {
 
-    private int racerNumber;
+    private String racerNumber;
     private int position;
 
-    public Racer(int racerNumber) {
+    public Racer(String racerNumber) {
         this.racerNumber = racerNumber;
         this.position = 0;
     }
 
-    public void moveRacer(String teamName, String color) {
+    public void moveRacer() {
         try {
-
             int radomNumber;
+            while (position < 20) {
 
-            while (position <= 20) {
-
-                radomNumber = generateRandomNumber(1, 4);
+                radomNumber = generateRandomNumber(1, 3);
                 position += radomNumber;
 
-                System.out.println(color + teamName + "Corredor " + racerNumber + " esta en la posición " + position);
-
+                if (racerNumber.equals("1-R") || racerNumber.equals("2-R") || racerNumber.equals("3-R")) {
+                    System.out.println("Equipo rojo --> Corredor " + racerNumber + " esta en la posición " + position);
+                } else if (racerNumber.equals("1-Y") || racerNumber.equals("2-Y") || racerNumber.equals("3-Y")) {
+                    System.out.println("Equipo amarillo --> Corredor " + racerNumber + " esta en la posición " + position);
+                } else if (racerNumber.equals("1-B") || racerNumber.equals("2-B") || racerNumber.equals("3-B")) {
+                    System.out.println("Equipo azul --> Corredor " + racerNumber + " esta en la posición " + position);
+                }
                 Thread.sleep(1000);
-
+                System.out.println("\n");
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Racer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static int generateRandomNumber(int numberMin, int numberMax) {
