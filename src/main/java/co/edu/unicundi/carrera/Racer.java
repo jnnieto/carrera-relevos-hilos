@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  * Clase Racer que maneja tanto las posiciones como el identificador de cada
- * competidor, además controla y asigna las posiciones aleatoriamente 
+ * competidor, además controla y asigna las posiciones aleatoriamente
  *
  * @author Tatiana Ramos Villanueva
  * @author Nicolás Nieto Cárdenas
@@ -19,18 +19,18 @@ import java.util.logging.Logger;
  */
 public class Racer {
 
-    private String racerNumber;
+    private int racerNumber;
     private int position;
 
-    public Racer(String racerNumber) {
+    public Racer(int racerNumber) {
         this.racerNumber = racerNumber;
         this.position = 0;
     }
 
-    public void moveRacer() {
-        
+    public synchronized void moveRacer() {
+
         try {
-            
+
             int randomNumber;
             while (position < 20) {
 
@@ -38,24 +38,27 @@ public class Racer {
                 position += randomNumber;
 
                 switch (racerNumber) {
-                    case "1-R":
-                    case "2-R":
-                    case "3-R":
-                        System.out.println("Equipo rojo --> Corredor " + racerNumber + " esta en la posición " + position);
+                    case 1:
+                    case 2:
+                    case 3:
+                        PrintRelayRace printRedTeam = new PrintRelayRace(position, "EQUIPO ROJO", racerNumber);
+                        printRedTeam.start();
                         break;
-                        
-                    case "1-Y":
-                    case "2-Y":
-                    case "3-Y":
-                        System.out.println("Equipo amarillo --> Corredor " + racerNumber + " esta en la posición " + position);
+
+                    case 4:
+                    case 5:
+                    case 6:
+                        PrintRelayRace printBlueTeam = new PrintRelayRace(position, "EQUIPO AZUL", racerNumber);
+                        printBlueTeam.start();
                         break;
-                        
-                    case "1-B":
-                    case "2-B":
-                    case "3-B":
-                        System.out.println("Equipo azul --> Corredor " + racerNumber + " esta en la posición " + position);
+
+                    case 7:
+                    case 8:
+                    case 9:
+                        PrintRelayRace printYellowTeam = new PrintRelayRace(position, "EQUIPO AMARILLO", racerNumber);
+                        printYellowTeam.start();
                         break;
-                        
+
                     default:
                         break;
                 }

@@ -43,31 +43,31 @@ public class Main {
     Racer racer9;
     Thread threadRacer9;
 
+    
     public Main() {
 
-        racer1 = new Racer("1-R");
+        racer1 = new Racer(1);
         threadRacer1 = new Teams(racer1, witnessRed);
-        racer2 = new Racer("2-R");
+        racer2 = new Racer(2);
         threadRacer2 = new Teams(racer2, witnessRed);
-        racer3 = new Racer("3-R");
+        racer3 = new Racer(3);
         threadRacer3 = new Teams(racer3, witnessRed);
 
-        racer4 = new Racer("1-B");
+        racer4 = new Racer(4);
         threadRacer4 = new Teams(racer4, witnessBlue);
-        racer5 = new Racer("2-B");
+        racer5 = new Racer(5);
         threadRacer5 = new Teams(racer5, witnessBlue);
-        racer6 = new Racer("3-B");
+        racer6 = new Racer(6);
         threadRacer6 = new Teams(racer6, witnessBlue);
 
-        racer7 = new Racer("1-Y");
+        racer7 = new Racer(7);
         threadRacer7 = new Teams(racer7, witnessYellow);
-        racer8 = new Racer("2-Y");
+        racer8 = new Racer(8);
         threadRacer8 = new Teams(racer8, witnessYellow);
-        racer9 = new Racer("3-Y");
+        racer9 = new Racer(9);
         threadRacer9 = new Teams(racer9, witnessYellow);
 
-        initThreads();
-        
+        initThreads();  
         finishRelayRace();
     }
 
