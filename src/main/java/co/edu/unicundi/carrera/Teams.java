@@ -5,7 +5,6 @@
  */
 package co.edu.unicundi.carrera;
 
-import static co.edu.unicundi.carrera.RedTeam.color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +28,7 @@ public class Teams extends Thread {
             try {
                 testigo.wait();
             } catch (InterruptedException ex) {
-                Logger.getLogger(RedTeam.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Teams.class.getName()).log(Level.SEVERE, null, ex);
             }
             racer.moveRacer();
             testigo.notify();
