@@ -19,31 +19,114 @@ import java.util.logging.Logger;
  */
 public class Main {
 
+    /**
+     * Instacia de la clase Object que representa el testigo del equipo rojo
+     */
     Object witnessRed = new Object();
+    
+    /**
+     * Instacia de la clase Object que representa el testigo del equipo azul
+     */
     Object witnessBlue = new Object();
+    
+    /**
+     * Instacia de la clase Object que representa el testigo del equipo amarillo
+     */
     Object witnessYellow = new Object();
 
+    /**
+     * Instacia de la clase Racer que representa al competidor 1 del equipo rojo
+     */
     Racer racer1;
+    
+    /**
+     * Instancia de hilo que representa al competidor 1 del equipo rojo
+     */
     Thread threadRacer1;
+    
+    /**
+     * Instacia de la clase Racer que representa al competidor 2 del equipo rojo
+     */
     Racer racer2;
+    
+    /**
+     * Instancia de hilo que representa al competidor 2 del equipo rojo
+     */
     Thread threadRacer2;
+    
+    /**
+     * Instacia de la clase Racer que representa al competidor 3 del equipo rojo
+     */
     Racer racer3;
+    
+    /**
+     * Instancia de hilo que representa al competidor 3 del equipo rojo
+     */
     Thread threadRacer3;
 
+    /**
+     * Instacia de la clase Racer que representa al competidor 1 del equipo azul
+     */
     Racer racer4;
+    
+    /**
+     * Instancia de hilo que representa al competidor 1 del equipo azul
+     */
     Thread threadRacer4;
+    
+    /**
+     * Instacia de la clase Racer que representa al competidor 2 del equipo azul
+     */
     Racer racer5;
+    
+    /**
+     * Instancia de hilo que representa al competidor 2 del equipo azul
+     */
     Thread threadRacer5;
+    
+    /**
+     * Instacia de la clase Racer que representa al competidor 3 del equipo azul
+     */
     Racer racer6;
+    
+    /**
+     * Instancia de hilo que representa al competidor 3 del equipo azul
+     */
     Thread threadRacer6;
 
+    /**
+     * Instacia de la clase Racer que representa al competidor 1 del equipo amarillo
+     */
     Racer racer7;
+    
+    /**
+     * Instancia de hilo que representa al competidor 1 del equipo amarillo
+     */
     Thread threadRacer7;
+    
+    /**
+     * Instacia de la clase Racer que representa al competidor 2 del equipo amarillo
+     */
     Racer racer8;
+    
+    /**
+     * Instancia de hilo que representa al competidor 2 del equipo amarillo
+     */
     Thread threadRacer8;
+    
+    /**
+     * Instacia de la clase Racer que representa al competidor 3 del equipo amarillo
+     */
     Racer racer9;
+    
+    /**
+     * Instancia de hilo que representa al competidor 3 del equipo amarillo
+     */
     Thread threadRacer9;
 
+    /**
+     * Contructor de la clase Main que inicializa la carrera
+     */
     public Main() {
 
         racer1 = new Racer(1);
@@ -67,14 +150,23 @@ public class Main {
         racer9 = new Racer(9);
         threadRacer9 = new Teams(racer9, witnessYellow);
 
+        // Iniciar todos los hilos que son los competidores de la carrera
         initThreads();
+        // Avisar cuando la carrera finalice con un ganador
         finishRelayRace();
     }
 
+    /**
+     * Método main que inicia la ejecución del programa
+     * @param args 
+     */
     public static void main(String[] args) {
         Main main = new Main();
     }
 
+    /**
+     * Método que pone en marcha todos los hilos creados en el programa
+     */
     public void initThreads() {
 
         threadRacer1.start();
@@ -87,6 +179,7 @@ public class Main {
         threadRacer6.start();
         threadRacer9.start();
 
+        // Se muestra el inicio de la carrera 
         try {
             for (int i = 3; i >= 1; i--) {
                 System.out.println("La carrera empezará en " + i);
@@ -96,19 +189,28 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        // Empila este objeto que es el testigo del equipo rojo
         synchronized (witnessRed) {
+            // Avisa al testigo que el siguiente competidor puede iniciar
             witnessRed.notify();
         }
 
+        // Empila este objeto que es el testigo del equipo azul
         synchronized (witnessBlue) {
+            // Avisa al testigo que el siguiente competidor puede iniciar
             witnessBlue.notify();
         }
 
+        // Empila este objeto que es el testigo del equipo amarillo
         synchronized (witnessYellow) {
+            // Avisa al testigo que el siguiente competidor puede iniciar
             witnessYellow.notify();
         }
     }
 
+    /**
+     * Método que para la ejecución de todos los hilos del programa
+     */
     public void interruptThreads() {
         threadRacer1.interrupt();
         threadRacer2.interrupt();
@@ -121,30 +223,37 @@ public class Main {
         threadRacer9.interrupt();
     }
 
+    /**
+     * Método que imprime el ganador de la carrera 
+     */
     public void finishRelayRace() {
 
+        // Validación de que todos lo hilos estén ejecutándose
         while (threadRacer1.isAlive() || threadRacer2.isAlive() || threadRacer3.isAlive()
                 || threadRacer4.isAlive() || threadRacer5.isAlive() || threadRacer6.isAlive()
                 || threadRacer7.isAlive() || threadRacer8.isAlive() || threadRacer9.isAlive()) {
 
+            // Si llega primero el competidor 3 del equipo rojo
             if (racer3.getPosition() >= 20) {
-
+                // Interrumpe los hilos
                 interruptThreads();
                 System.out.println("************************************************");
                 System.out.println("*****¡EL EQUIPO GANADOR ES EL EQUIPO ROJO!*****");
                 System.out.println("************************************************");
                 break;
 
+            // Si llega primero el competidor 3 del equipo azul
             } else if (racer6.getPosition() >= 20) {
-
+                // Interrumpe los hilos
                 interruptThreads();
                 System.out.println("************************************************");
                 System.out.println("******¡EL EQUIPO GANADOR ES EL EQUIPO AZUL!*****");
                 System.out.println("************************************************");
                 break;
 
+            // Si llega primero el competidor 3 del equipo amarillo
             } else if (racer9.getPosition() >= 20) {
-
+                // Interrumpe los hilos
                 interruptThreads();
                 System.out.println("************************************************");
                 System.out.println("****¡EL EQUIPO GANADOR ES EL EQUIPO AMARILLO!***");
