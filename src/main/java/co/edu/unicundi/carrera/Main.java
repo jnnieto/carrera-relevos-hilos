@@ -5,6 +5,7 @@
  */
 package co.edu.unicundi.carrera;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +44,6 @@ public class Main {
     Racer racer9;
     Thread threadRacer9;
 
-    
     public Main() {
 
         racer1 = new Racer(1);
@@ -67,7 +67,7 @@ public class Main {
         racer9 = new Racer(9);
         threadRacer9 = new Teams(racer9, witnessYellow);
 
-        initThreads();  
+        initThreads();
         finishRelayRace();
     }
 
@@ -78,21 +78,24 @@ public class Main {
     public void initThreads() {
 
         threadRacer1.start();
-        threadRacer2.start();
-        threadRacer3.start();
         threadRacer4.start();
-        threadRacer5.start();
-        threadRacer6.start();
         threadRacer7.start();
+        threadRacer2.start();
+        threadRacer5.start();
         threadRacer8.start();
+        threadRacer3.start();
+        threadRacer6.start();
         threadRacer9.start();
 
         try {
-            Thread.sleep(3000);
-
+            for (int i = 3; i >= 1; i--) {
+                System.out.println("La carrera empezará en " + i);
+                Thread.sleep(1000);
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         synchronized (witnessRed) {
             witnessRed.notify();
         }
@@ -117,7 +120,7 @@ public class Main {
         threadRacer8.interrupt();
         threadRacer9.interrupt();
     }
-    
+
     public void finishRelayRace() {
 
         while (threadRacer1.isAlive() || threadRacer2.isAlive() || threadRacer3.isAlive()
@@ -127,22 +130,28 @@ public class Main {
             if (racer3.getPosition() >= 20) {
 
                 interruptThreads();
-                System.out.println("EL EQUIPO GANADOR ES EL EQUIPO ROJO");
+                System.out.println("************************************************");
+                System.out.println("*****¡EL EQUIPO GANADOR ES EL EQUIPO ROJO!*****");
+                System.out.println("************************************************");
                 break;
 
             } else if (racer6.getPosition() >= 20) {
 
                 interruptThreads();
-                System.out.println("EL EQUIPO GANADOR ES EL EQUIPO AZUL");
+                System.out.println("************************************************");
+                System.out.println("******¡EL EQUIPO GANADOR ES EL EQUIPO AZUL!*****");
+                System.out.println("************************************************");
                 break;
 
             } else if (racer9.getPosition() >= 20) {
 
                 interruptThreads();
-                System.out.println("EL EQUIPO GANADOR ES EL EQUIPO AMARILLO");
+                System.out.println("************************************************");
+                System.out.println("****¡EL EQUIPO GANADOR ES EL EQUIPO AMARILLO!***");
+                System.out.println("************************************************");
                 break;
             }
         }
     }
- 
+
 }

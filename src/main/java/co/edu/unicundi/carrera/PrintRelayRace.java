@@ -57,11 +57,11 @@ public class PrintRelayRace extends Thread {
         }
 
         String distanceRemain = speedway.substring(this.positionRacer, speedway.length());
-        System.out.println("\r" + this.nameTeam + distanceDone + distanceRemain + " " + this.positionRacer);
+        System.out.println("\r" + this.nameTeam + "     " + distanceDone + distanceRemain + " " + this.positionRacer);
 
         if (this.positionRacer == 22) {
             System.out.print("\n");
-        }
+        } 
     }
 
     public String setIconRacer() {

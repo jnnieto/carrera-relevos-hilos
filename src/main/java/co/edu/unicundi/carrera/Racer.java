@@ -41,21 +41,21 @@ public class Racer {
                     case 1:
                     case 2:
                     case 3:
-                        PrintRelayRace printRedTeam = new PrintRelayRace(position, "EQUIPO ROJO", racerNumber);
+                        PrintRelayRace printRedTeam = new PrintRelayRace(position, "T E A M  ROJO", racerNumber);
                         printRedTeam.start();
                         break;
 
                     case 4:
                     case 5:
                     case 6:
-                        PrintRelayRace printBlueTeam = new PrintRelayRace(position, "EQUIPO AZUL", racerNumber);
+                        PrintRelayRace printBlueTeam = new PrintRelayRace(position, "T E A M  AZUL", racerNumber);
                         printBlueTeam.start();
                         break;
 
                     case 7:
                     case 8:
                     case 9:
-                        PrintRelayRace printYellowTeam = new PrintRelayRace(position, "EQUIPO AMARILLO", racerNumber);
+                        PrintRelayRace printYellowTeam = new PrintRelayRace(position, "TEAM AMARILLO", racerNumber);
                         printYellowTeam.start();
                         break;
 
