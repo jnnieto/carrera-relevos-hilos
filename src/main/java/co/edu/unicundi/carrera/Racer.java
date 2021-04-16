@@ -19,14 +19,33 @@ import java.util.logging.Logger;
  */
 public class Racer {
 
+    /**
+     * Variable entera que almacena el número asignado a cada corredor de cada
+     * equipo
+     */
     private int racerNumber;
+
+    /**
+     * Variable entera que almacena la posicion de cada corredor a medida que
+     * transcurre la carrera de relevos
+     */
     private int position;
 
+    /**
+     * Constructor sobrecargado de la clase Racer
+     *
+     * @param racerNumber
+     */
     public Racer(int racerNumber) {
         this.racerNumber = racerNumber;
         this.position = 0;
     }
 
+    /**
+     * Metodo sincronizado el cual se encarga de asignarle las posiciones
+     * aleatorias a todos los corredores de cada equipo y de esta forma llevar a
+     * cabo la carrera de relevos
+     */
     public synchronized void moveRacer() {
 
         try {
@@ -34,10 +53,13 @@ public class Racer {
             int randomNumber;
             while (position < 20) {
 
+                // Número aleatorio que se le asignara a cada corredor para su desplazamiento
                 randomNumber = generateRandomNumber(1, 3);
                 position += randomNumber;
 
                 switch (racerNumber) {
+
+                    // Identificador de los corredores del equipo rojo (1,2,3)
                     case 1:
                     case 2:
                     case 3:
@@ -45,6 +67,7 @@ public class Racer {
                         printRedTeam.start();
                         break;
 
+                    // Identificador de los corredores del equipo azul (4,5,6)
                     case 4:
                     case 5:
                     case 6:
@@ -52,6 +75,7 @@ public class Racer {
                         printBlueTeam.start();
                         break;
 
+                    // Identificador de los corredores del equipo amarillo (7,8,9)
                     case 7:
                     case 8:
                     case 9:
@@ -70,11 +94,24 @@ public class Racer {
         }
     }
 
+    /**
+     * Método que genera un número aleatorio que se le asignara a la posicion de
+     * cada corredor
+     *
+     * @param numberMin
+     * @param numberMax
+     * @return Numero aleatorio
+     */
     public static int generateRandomNumber(int numberMin, int numberMax) {
         int randomNumber = (int) Math.floor(Math.random() * (numberMax - numberMin + 1) + (numberMin));
         return randomNumber;
     }
 
+    /**
+     * Método encapsulado que obtiene la posición de cada corredor
+     *
+     * @return Posicion del corredor en cada momento determinado
+     */
     public int getPosition() {
         return position;
     }
